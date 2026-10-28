@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#eaf8ff">
+  <title>Petit Génie — Apprendre en s’amusant !</title>
+  <style>
+    :root{
+      --blue:#168ed8; --dark:#145d9b; --pink:#f04f8a; --yellow:#ffb91f;
+      --green:#51b83d; --purple:#9a59df; --ink:#174f7e; --paper:#fffefa;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);
+      background:linear-gradient(180deg,#eaf8ff 0,#fff 42%,#f4fcff 100%)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;
+      padding:14px clamp(16px,4vw,60px);border-bottom:2px solid #d8f0fb;background:#ffffffd9}
+    .brand{font-weight:900;font-size:clamp(20px,3vw,31px);color:#137fd0;line-height:1.05}
+    .brand span{color:#ff8d21}
+    .tagline{font-size:12px;color:#e77b1c;font-weight:700;margin-top:4px}
+    .top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    select,input{font:inherit;border:1px solid #c9e7f4;border-radius:24px;padding:10px 13px;background:white;color:var(--ink)}
+    input{width:min(230px,42vw)}
+    .round{border:0;border-radius:50%;width:42px;height:42px;background:#f45b91;color:white;font-size:20px;cursor:pointer}
+    .hero{position:relative;overflow:hidden;text-align:center;padding:32px 18px 28px;
+      background:radial-gradient(ellipse at 15% 80%,#b9efff 0,transparent 35%),
+                 radial-gradient(ellipse at 90% 30%,#d9f5ff 0,transparent 32%),linear-gradient(180deg,#eaf8ff,#fff)}
+    .hero h1{font-size:clamp(42px,7vw,86px);line-height:1;margin:10px 0;color:#0879cc;
+      text-shadow:0 3px 0 #c3e9ff;letter-spacing:-2px}
+    .hero h1 .pink{color:#f04f8a}.hero h1 .yellow{color:#ffb91f}.hero h1 .green{color:#53bd4b}
+    .hero p{margin:12px 0 20px;color:#ed7c17;font-weight:900;font-size:clamp(20px,3vw,34px)}
+    .motto{display:inline-flex;justify-content:center;gap:12px;flex-wrap:wrap;border:1px solid #c6e8f6;
+      border-radius:28px;background:#ffffffdb;padding:12px 20px;font-weight:700}
+    .motto span{padding:0 8px}
+    .section{max-width:1440px;margin:auto;padding:22px clamp(14px,3.2vw,48px) 38px}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .card{--accent:var(--yellow);--bg:#fff6d4;min-width:0;overflow:hidden;border-radius:24px;
+      background:var(--bg);border:1px solid color-mix(in srgb,var(--accent) 30%,white);
+      box-shadow:0 5px 16px #145d9b0b;transition:transform .18s,box-shadow .18s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 12px 24px #145d9b18}
+    .card.blue{--accent:#159ce8;--bg:#e1f7ff}.card.pink{--accent:#f34d8b;--bg:#ffebf4}
+    .card.green{--accent:#4bb93e;--bg:#eafbdd}.card.purple{--accent:#a15ce2;--bg:#f1eaff}
+    .visual{height:170px;display:flex;align-items:center;justify-content:center;padding:8px 12px 0}
+    .visual img{width:100%;height:100%;object-fit:contain;border-radius:14px}
+    .card-content{padding:0 18px 18px;display:flex;align-items:center;gap:12px}
+    .labels{min-width:0;flex:1}
+    .title{display:inline-block;max-width:100%;background:var(--accent);color:white;border-radius:25px;
+      padding:8px 20px;font-size:clamp(16px,1.7vw,22px);font-weight:900;white-space:normal}
+    .arabic{font-size:18px;font-weight:800;margin:7px 0 1px;color:var(--accent);direction:rtl;text-align:left}
+    .english{font-weight:700;color:#256b9e;font-size:16px}
+    .arrow{flex-shrink:0;width:48px;height:48px;border-radius:50%;background:var(--accent);color:white;
+      border:0;font-size:27px;cursor:pointer;transition:transform .2s}
+    .arrow:hover{transform:translateX(3px)}
+    .empty{display:none;text-align:center;padding:28px;color:#6689a0}
+    footer{text-align:center;padding:18px 14px 26px;color:#246c9c;font-weight:700}
+    footer .heart{color:#f45b91;margin:0 10px}
+    @media(max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.visual{height:155px}}
+    @media(max-width:560px){
+      .topbar{align-items:flex-start;flex-direction:column;padding:12px 16px}
+      .top-actions{width:100%}input{flex:1;width:120px}
+      .hero{padding:26px 12px 24px}.hero h1{letter-spacing:-1px}
+      .motto{font-size:13px;padding:10px 12px;gap:4px}
+      .cards{grid-template-columns:1fr;gap:14px}.visual{height:180px}
+      .card-content{padding:0 15px 16px}.title{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">🦁 Petit Génie<span> ★</span></div>
+      <div class="tagline">Apprendre en s’amusant !</div>
+    </div>
+    <div class="top-actions">
+      <select aria-label="Choisir la langue" id="language">
+        <option value="fr">🇫🇷 Français</option>
+        <option value="ar">🇲🇦 العربية</option>
+        <option value="en">🇬🇧 English</option>
+      </select>
+      <input id="search" type="search" placeholder="🔎 Rechercher..." aria-label="Rechercher une catégorie">
+      <button class="round" aria-label="Favoris" title="Favoris" onclick="alert('Ajoutez bientôt vos thèmes préférés !')">♥</button>
+    </div>
+  </header>
 
+  <section class="hero">
+    <h1 id="mainTitle"><span>Petit</span> <span class="pink">Gé</span><span class="yellow">n</span><span class="green">i</span><span class="pink">e</span></h1>
+    <p id="subtitle">Apprendre en s’amusant !</p>
+    <div class="motto">
+      <span>🇲🇦 <b>نتعلم ونكتشف العالم باللعب!</b></span>
+      <span>🇫🇷 J’apprends en jouant !</span>
+      <span>🇬🇧 Learn through play!</span>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="cards" id="cards">
+      <article class="card" data-key="animaux animaux الحيوانات animals">
+        <div class="visual"><img src="images/animaux.jpg" alt="Illustration des animaux : éléphant, lion, panda et girafe"></div>
+        <div class="card-content"><div class="labels">
+          <div class="title" data-fr="Les animaux" data-ar="الحيوانات" data-en="Animals">Les animaux</div>
+          <div class="arabic">الحيوانات</div><div class="english">Animals</div>
+        </div><button class="arrow" aria-label="Découvrir les animaux" onclick="openTopic('Les animaux')">➜</button></div>
+      </article>
+      <article class="card blue" data-key="couleurs couleurs الألوان colors">
+        <div class="visual"><img src="images/couleurs.jpg" alt="Illustration d’un arc-en-ciel et d’une palette de peinture"></div>
+        <div class="card-content"><div class="labels">
+          <div class="title" data-fr="Les couleurs" data-ar="الألوان" data-en="Colors">Les couleurs</div>
+          <div class="arabic">الألوان</div><div class="english">Colors</div>
+        </div><button class="arrow" aria-label="Découvrir les couleurs" onclick="openTopic('Les couleurs')">➜</button></div>
+      </article>
+      <article class="card pink" data-key="chiffres nombres الأرقام numbers">
+        <div class="visual"><img src="images/chiffres.jpg" alt="Chiffres colorés 1, 2 et 3"></div>
+        <div class="card-content"><div class="labels">
+          <div class="title" data-fr="Les chiffres" data-ar="الأرقام" data-en="Numbers">Les chiffres</div>
+          <div class="arabic">الأرقام</div><div class="english">Numbers</div>
+        </div><button class="arrow" aria-label="Découvrir les chiffres" onclick="openTopic('Les chiffres')">➜</button></div>
+      </article>
+      <article class="card pink" data-key="fruits الفواكه fruits">
+        <div class="visual"><img src="images/fruits.jpg" alt="Illustrations souriantes de fruits : pomme, banane, orange, raisin et fraise"></div>
+        <div class="card-content"><div class="labels">
+          <div class="title" data-fr="Les fruits" data-ar="الفواكه" data-en="Fruits">Les fruits</div>
+          <div class="arabic">الفواكه</div><div class="english">Fruits</div>
+        </div><button class="arrow" aria-label="Découvrir les fruits" onclick="openTopic('Les fruits')">➜</button></div>
+      </article>
+      <article class="card green" data-key="légumes legumes الخضر vegetables">
+        <div class="visual"><img src="images/legumes.jpg" alt="Illustrations de légumes : carotte, brocoli, tomate et aubergine"></div>
+        <div class="card-content"><div class="labels">
+          <div class="title" data-fr="Les légumes" data-ar="الخضر" data-en="Vegetables">Les légumes</div>
+          <div class="arabic">الخضر</div><div class="english">Vegetables</div>
+        </div><button class="arrow" aria-label="Découvrir les légumes" onclick="openTopic('Les légumes')">➜</button></div>
+      </article>
+      <article class="card purple" data-key="formes géométriques الأشكال الهندسية shapes geometry">
+        <div class="visual"><img src="images/formes.jpg" alt="Formes géométriques colorées : étoile, cercle, triangle, carré et rectangle"></div>
+        <div class="card-content"><div class="labels">
+          <div class="title" data-fr="Les formes géométriques" data-ar="الأشكال الهندسية" data-en="Geometric shapes">Les formes géométriques</div>
+          <div class="arabic">الأشكال الهندسية</div><div class="english">Shapes</div>
+        </div><button class="arrow" aria-label="Découvrir les formes géométriques" onclick="openTopic('Les formes géométriques')">➜</button></div>
+      </article>
+    </div>
+    <div class="empty" id="empty">Aucun thème trouvé. Essayez un autre mot.</div>
+  </main>
+  <footer><span class="heart">♥</span> Petit Génie — Un petit pas chaque jour vers un grand avenir ! <span class="heart">♥</span></footer>
+
+  <script>
+    const search = document.getElementById('search');
+    const cards = [...document.querySelectorAll('.card')];
+    const empty = document.getElementById('empty');
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLocaleLowerCase();
+      let count = 0;
+      cards.forEach(card => {
+        const match = card.dataset.key.toLocaleLowerCase().includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) count++;
+      });
+      empty.style.display = count ? 'none' : 'block';
+    });
+    const translations = {
+      fr: {subtitle:'Apprendre en s’amusant !', placeholder:'🔎 Rechercher...'},
+      ar: {subtitle:'نتعلّم ونمرح معًا!', placeholder:'🔎 ابحث عن موضوع...'},
+      en: {subtitle:'Learn through play!', placeholder:'🔎 Search...'}
+    };
+    document.getElementById('language').addEventListener('change', e => {
+      const lang = e.target.value;
+      document.getElementById('subtitle').textContent = translations[lang].subtitle;
+      search.placeholder = translations[lang].placeholder;
+      document.querySelectorAll('.title').forEach(el => el.textContent = el.dataset[lang]);
+      document.documentElement.lang = lang;
+    });
+    function openTopic(topic) {
+      alert('Bienvenue dans le thème : ' + topic + ' !\\nVous pourrez ajouter ici les leçons et les jeux de cette catégorie.');
+    }
+  </script>
+</body>
+</html>
