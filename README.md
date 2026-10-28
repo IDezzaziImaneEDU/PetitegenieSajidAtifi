@@ -13,4 +13,7 @@ Pour publier sur GitHub :
 6. Dans Settings > Pages, choisissez Deploy from a branch, puis main et / (root), puis Save.
 
 Important : gardez le dossier images à côté de index.html. Les boutons de catégories affichent pour le moment un message de démonstration ; les leçons peuvent être ajoutées ensuite.
-![image alt]()
+![image alt](https://github.com/IDezzaziImaneEDU/PetitegenieSajidAtifi/blob/main/image/animaux.jpg?raw=true)
+![image alt](https://github.com/IDezzaziImaneEDU/PetitegenieSajidAtifi/blob/main/image/chiffres.jpg?raw=true)
+![image alt](https://github.com/IDezzaziImaneEDU/PetitegenieSajidAtifi/blob/main/image/couleurs.jpg?raw=true)
+
